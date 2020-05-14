@@ -1,28 +1,71 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <NewIncomeForm v-on:income-added="newIncomeAdded"></NewIncomeForm>
+    <NewExpenseForm v-on:expense-added="newExpenseAdded"></NewExpenseForm>
+    <NewSavingForm v-on:saving-added="newSavingAdded"></NewSavingForm>
+    <LedgerTable
+            v-bind:incomeItems="incomeItems"
+            v-bind:expenseItems="expenseItems"
+            v-bind:savingItems="savingItems"
+            v-on:delete-income="incomeDeleted"
+            v-on:delete-expense="expenseDeleted"
+            v-on:delete-saving="savingDeleted"
+    ></LedgerTable>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NewIncomeForm from './components/NewIncomeForm.vue'
+import NewExpenseForm from './components/NewExpenseForm.vue'
+import NewSavingForm from './components/NewSavingForm.vue'
+import LedgerTable from './components/LedgerTable.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NewIncomeForm,
+    NewExpenseForm,
+    NewSavingForm,
+    LedgerTable
+  },
+  data() {
+    return {
+      incomeItems: [],
+      expenseItems: [],
+      savingItems: [],
+    }
+  },
+  methods: {
+    newIncomeAdded(income){
+      this.incomeItems.push(income)
+    },
+    newExpenseAdded(expense){
+      this.expenseItems.push(expense)
+    },
+    newSavingAdded(saving){
+      this.savingItems.push(saving)
+    },
+    incomeDeleted(income) {
+      this.incomeItems = this.income
+    },
+    expenseDeleted(expense) {
+      this.expenseItems = this.expense
+    },
+    savingDeleted(saving) {
+      this.savingItems = this.saving
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+/*TODO Add personalized style(s)*/
+/*#app {*/
+/*  font-family: Avenir, Helvetica, Arial, sans-serif;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*  text-align: center;*/
+/*  color: #2c3e50;*/
+/*  margin-top: 60px;*/
+/*}*/
 </style>
